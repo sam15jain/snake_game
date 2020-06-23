@@ -1,8 +1,46 @@
 #mycanvas{
-	background-image: url(backg.jpg);
+	display: inline-block;
+	background-image: url(greenbackground4.jpg);
 	border: #300808 solid 10px;
 	/*margin-left: 25%;*/
 	/* width: 940px;
 	height: 935px ; */
 	/* color: #000c01 */
+}
+#start_pause{
+	display: inline-block;
+	/* margin-left: 18%; */
+	/* margin-bottom: 50%; */
+	border:	#300808 solid 5px;
+	 /* color : #041d0d; */
+	/* color : #4d0303;  */
+	/* color : #8e24cc   */ /*purple*/
+	/* color : #bbec0b */
+	/* color : #0e1064 */
+	/* color : #000269 */
+	font-weight: bold;
+	font-size: 18pt;
+	padding: 5px ;
+}
+#controls{
+	display: inline-block;
+	border:	#300808 solid 5px;
+	font-weight: bold;
+	font-size: 18pt;
+	padding: 5px ;	
+}
+#score {
+	margin-left: 8.5%;
+	display: inline-block;
+	border:	#300808 solid 5px;
+	font-weight: bold;
+	font-size: 18pt;
+	padding: 5px ;
+}
+#difficulty{
+	display: inline-block;
+	border:	#300808 solid 5px;
+	font-weight: bold;
+	font-size: 18pt;
+	padding: 5px ;
 }
