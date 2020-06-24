@@ -1,11 +1,25 @@
-
+class Theme {
+	constructor(background_color, canvas_color, snake_color, snake_head_color) {
+		this.background_color = background_color;
+		this.canvas_color = canvas_color;
+		this.snake_color = snake_color;
+		this.snake_head_color = snake_head_color;
+	}
+}
+theme1 = new Theme("#fcf195", "#0bad41c0", "#b30303", "#000000");
+theme2 = new Theme("#5d77a7", "#000000", "#0b3788", "#ffffff");
 
 function init() {
 	// console.log("in init");
-
 	canvas = document.getElementById('mycanvas');
+	pen = canvas.getContext('2d');
 	canHt = canvas.height = 570;
 	canWdt = canvas.width = 1330;
+	canHt = canvas.height;
+	canWdt = canvas.width;
+	current_theme= theme2;
+	pen.fillStyle = current_theme.canvas_color;
+	pen.fillRect(0,0,canWdt,canHt); 	
 	celldim = 38;
 	food_image = new Image();
 	food_image.src = "apple.png";
@@ -14,20 +28,24 @@ function init() {
 	food_eating_sound = new sound("food_eating_sound.mp3");
 	level_up_sound = new sound("level_up_sound.mp3");
 	game_over_sound = new sound("game_over_sound.mp3");
-	pen = canvas.getContext('2d');
 
 	food = makeFood();
 	score = 0;
 	difficulty = 1;
 	d_interval = 2;
 	speed_change = 30;
-	speed = 200;
-
+	speed = 180;
+	
+	// canvas.background-color = current_theme.canvas_color;
+	
+	document.body.style.background = current_theme.background_color;
+	
 	gameOver = false;
 	snake = {
 		initLen: 4,
 		snakedir: "right",
-		color: "#000269",
+		color: current_theme.snake_color,
+		// color: "#0b3788",
 		cells: [],
 
 		createSnake: function () {
@@ -38,7 +56,8 @@ function init() {
 
 		drawSnake: function () {
 			// console.log("in drawSake");
-			pen.fillStyle = "#000000";
+			pen.fillStyle = current_theme.snake_head_color;
+			// pen.fillStyle = "#ffffff";
 			for (var i = 0; i < this.cells.length; i++) {
 				// console.log("in loop");
 				pen.fillRect((this.cells[i].x * celldim) + 1, (this.cells[i].y * celldim) + 1, celldim - 1, celldim - 1);
@@ -62,6 +81,7 @@ function init() {
 					speed = Math.max(speed - speed_change, 40);
 					console.log(speed);
 					// speed = Math.max((200 + d_interval) - (difficulty * d_interval), 40);
+					change_theme();
 					speedincrease();
 				}
 				if (score > 2) {
@@ -131,6 +151,16 @@ function init() {
 	}
 	document.addEventListener("keydown", keypress);
 }
+function change_theme() {
+	if (current_theme===theme1){
+		current_theme=theme2;
+	}
+	else if(current_theme===theme2){
+		current_theme=theme1;
+	}
+	snake.color=current_theme.snake_color;
+	document.body.style.background = current_theme.background_color;
+}
 function sound(src) {
 	this.sound = document.createElement("audio");
 	this.sound.src = src;
@@ -149,6 +179,8 @@ function sound(src) {
 function draw() {
 	// console.log("in draw");
 	pen.clearRect(0, 0, canWdt, canHt);
+	pen.fillStyle = current_theme.canvas_color;
+	pen.fillRect(0,0,canWdt,canHt); 
 	snake.drawSnake();
 	// pen.fillStyle = food.color;
 	// pen.fillRect(food.x * celldim, food.y * celldim, celldim, celldim);
@@ -231,5 +263,6 @@ function startgame(e) {
 init();
 draw();
 document.addEventListener("keydown", startgame);
+
 
 
