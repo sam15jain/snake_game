@@ -171,6 +171,7 @@ function init() {
 
 	// event listener
 	document.addEventListener("keydown", keypress);
+	
 }
 
 /// function to change theme
