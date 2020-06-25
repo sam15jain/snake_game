@@ -170,7 +170,7 @@ function init() {
 	}
 
 	// event listener
-	document.addEventListener("keydown", keypress);
+	document.addEventListener("keydown", keypress); 
 	
 }
 
