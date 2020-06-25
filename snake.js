@@ -45,8 +45,9 @@ function init() {
 	level = 1;
 	level_interval = 2;
 	speed_change = 30;
-	speed = 180;
+	speed = 170;
 	game_over = false;
+	directions_queue = [];
 	document.body.style.background = current_theme.background_color;
 
 	/// initialising snake object
@@ -136,6 +137,12 @@ function init() {
 				game_over = true;
 			}
 
+			/// check if snake touches its own body
+			if (collision(new_snake_head_x, new_snake_head_y)) {
+				console.log("collision");
+				game_over = true;
+			}
+
 			/// new snake head coordinates are pushed in the cells array
 			this.cells.unshift({ x: new_snake_head_x, y: new_snake_head_y });
 		}
@@ -143,35 +150,10 @@ function init() {
 	/// snake is created for the first time
 	snake.createSnake();
 
-	/// this function handles the key presses and direction change
-	function keypress(evnt) {
-		// console.log("key pressed", evnt.key);
-		if (has_game_started == true) {
-
-			if ((evnt.key === "ArrowRight" || evnt.key === "d") && snake.snake_direction != "left" && snake.snake_direction != "right") {
-				snake.snake_direction = "right";
-				keypress_sound.play();
-			}
-			else if ((evnt.key === "ArrowLeft" || evnt.key === "a") && snake.snake_direction != "right" && snake.snake_direction != "left") {
-				snake.snake_direction = "left";
-				keypress_sound.play();
-			}
-			else if ((evnt.key === "ArrowDown" || evnt.key === "s") && snake.snake_direction != "up" && snake.snake_direction != "down") {
-				snake.snake_direction = "down";
-				keypress_sound.play();
-			}
-			else if ((evnt.key === "ArrowUp" || evnt.key === "w") && snake.snake_direction != "down" && snake.snake_direction != "up") {
-				snake.snake_direction = "up";
-				keypress_sound.play();
-			}
-		}
-
-		// console.log("direction", snake.snake_direction);
-	}
 
 	// event listener
-	document.addEventListener("keydown", keypress); 
-	
+	document.addEventListener("keydown", keypress);
+
 }
 
 /// function to change theme
@@ -187,6 +169,14 @@ function change_theme() {
 	document.body.style.background = current_theme.background_color;
 }
 
+function collision(new_snake_head_x, new_snake_head_y) {
+	for (let i = 0; i < snake.cells.length; i++) {
+		if (snake.cells[i].x === new_snake_head_x && snake.cells[i].y === new_snake_head_y) {
+			return true;
+		}
+	}
+	return false;
+}
 /// sound class definition, used to create audio objects 
 class sound {
 	constructor(src) {
@@ -244,9 +234,43 @@ function draw() {
 	}
 }
 
-/// function to call update method of snake object
+/// this function handles the direction change by looking at directions_queue
+function change_direction() {
+	// console.log("key pressed", front);
+	did_change = false;
+	while (directions_queue.length != 0 && did_change === false) {
+		var front = directions_queue[0];
+		if (front === "right" && snake.snake_direction != "left" && snake.snake_direction != "right") {
+			snake.snake_direction = "right";
+			did_change = true;
+			keypress_sound.play();
+		}
+		else if (front === "left" && snake.snake_direction != "right" && snake.snake_direction != "left") {
+			snake.snake_direction = "left";
+			did_change = true;
+			keypress_sound.play();
+		}
+		else if (front === "down" && snake.snake_direction != "up" && snake.snake_direction != "down") {
+			snake.snake_direction = "down";
+			did_change = true;
+			keypress_sound.play();
+		}
+		else if (front === "up" && snake.snake_direction != "down" && snake.snake_direction != "up") {
+			snake.snake_direction = "up";
+			did_change = true;
+			keypress_sound.play();
+		}
+		else {
+			directions_queue.shift();
+		}				
+	}
+	// console.log("direction", snake.snake_direction);
+}
+
+/// function to call update method of snake object and change direction function
 function update() {
 	// console.log("in update");
+	change_direction();
 	snake.updateSnake();
 }
 
@@ -295,6 +319,24 @@ function gameloop() {
 function speedincrease() {
 	clearInterval(run);
 	run = setInterval(gameloop, speed);
+}
+
+/// function that stores possible direction changes in directions_queue
+function keypress(evnt) {
+	if (has_game_started == true) {
+		if (evnt.key === "ArrowRight" || evnt.key === "d") {
+			directions_queue.push("right");
+		}
+		else if (evnt.key === "ArrowLeft" || evnt.key === "a") {
+			directions_queue.push("left");
+		}
+		else if (evnt.key === "ArrowDown" || evnt.key === "s") {
+			directions_queue.push("down");
+		}
+		else if (evnt.key === "ArrowUp" || evnt.key === "w") {
+			directions_queue.push("up");
+		}
+	}
 }
 /// function to control play and pause functionality
 var has_game_started = false;
