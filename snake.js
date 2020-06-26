@@ -40,7 +40,6 @@ function init() {
 
 	// Initialising game parameters
 	celldim = 34.2;
-	food = makeFood();
 	score = 0;
 	level = 1;
 	level_interval = 2;
@@ -85,17 +84,21 @@ function init() {
 			if (food.x === current_snake_head_x && food.y === current_snake_head_y) {
 				console.log("food eaten");
 				food_eating_sound.play();
+
+				/// make new food and increase score
 				food = makeFood();
 				score++;
+
 				/// check if level is changed
 				if (score % level_interval === 0) {
 					level++;
 					level_up_sound.play();
 					speed = Math.max(speed - speed_change, 40);
-					console.log(speed);
+					console.log("speed", speed);
 					change_theme();
 					speedincrease();
 				}
+
 				/// level parameters change
 				if (score > 2) {
 					level_interval = 5;
@@ -103,6 +106,7 @@ function init() {
 				}
 
 			}
+			
 			/// if food is not eaten, pop last element so that length doesn't increase 
 			else {
 				this.cells.pop();
@@ -150,6 +154,8 @@ function init() {
 	/// snake is created for the first time
 	snake.createSnake();
 
+	/// food is created for the first time 
+	food = makeFood();
 
 	// event listener
 	document.addEventListener("keydown", keypress);
@@ -262,7 +268,7 @@ function change_direction() {
 		}
 		else {
 			directions_queue.shift();
-		}				
+		}
 	}
 	// console.log("direction", snake.snake_direction);
 }
@@ -276,8 +282,22 @@ function update() {
 
 /// function to generate and return random food locations
 function makeFood() {
-	var food_x = Math.round(Math.random() * (canWdt - celldim) / celldim);
-	var food_y = Math.round(Math.random() * (canHt - celldim) / celldim);
+
+	/// keep generating food until we get a food location that is not on snake's body
+	var food_on_snake = true;
+	while (food_on_snake === true) {
+		food_on_snake = false;
+		var food_x = Math.round(Math.random() * (canWdt - celldim) / celldim);
+		var food_y = Math.round(Math.random() * (canHt - celldim) / celldim);
+
+		for (let i = 0; i < snake.cells.length; i++) {
+			if (snake.cells[i].x === food_x && snake.cells[i].y === food_y) {
+				console.log("food on snake");
+				food_on_snake = true;
+			}
+		}
+	}
+
 	var food = {
 		x: food_x,
 		y: food_y,
@@ -285,10 +305,14 @@ function makeFood() {
 	}
 	return food;
 }
+
 /// game loop 
 function gameloop() {
+
 	/// check if game is over
 	if (game_over === true) {
+		
+		/// stop game loop
 		clearInterval(run);
 
 		keypress_sound.stop();
@@ -338,11 +362,14 @@ function keypress(evnt) {
 		}
 	}
 }
+
 /// function to control play and pause functionality
 var has_game_started = false;
 var run;
 function start_game(e) {
 	if (game_over === false) {
+
+		/// play
 		if ((e.key === "Enter" || e.key === " ") && has_game_started === false) {
 			// console.log("in start_game");
 			keypress_sound2.play();
@@ -351,6 +378,8 @@ function start_game(e) {
 			message.innerHTML = "Press Enter or Space To Pause The Game";
 			run = setInterval(gameloop, speed);
 		}
+
+		/// pause
 		else if ((e.key === "Enter" || e.key === " ") && has_game_started === true) {
 			// console.log("in start_game");
 			keypress_sound2.play();
