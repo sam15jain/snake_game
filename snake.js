@@ -106,7 +106,7 @@ function init() {
 				}
 
 			}
-			
+
 			/// if food is not eaten, pop last element so that length doesn't increase 
 			else {
 				this.cells.pop();
@@ -175,6 +175,7 @@ function change_theme() {
 	document.body.style.background = current_theme.background_color;
 }
 
+/// this function returns if collision has occured
 function collision(new_snake_head_x, new_snake_head_y) {
 	for (let i = 0; i < snake.cells.length; i++) {
 		if (snake.cells[i].x === new_snake_head_x && snake.cells[i].y === new_snake_head_y) {
@@ -183,6 +184,7 @@ function collision(new_snake_head_x, new_snake_head_y) {
 	}
 	return false;
 }
+
 /// sound class definition, used to create audio objects 
 class sound {
 	constructor(src) {
