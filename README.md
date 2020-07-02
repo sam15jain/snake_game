@@ -31,7 +31,7 @@ positions, while avoiding hitting the walls and itself.
 * W / A / S / D keys or Arrow keys to move the snake
 * Space or Enter to Start, Pause or Un-Pause the game
 
-![game_start]((screenshots/game_start_ss.png))
-![game_paused]((screenshots/game_paused_ss.png))
+![game_start](screenshots/game_start_ss.png)
+![game_paused](screenshots/game_paused_ss.png)
 
 * Ctrl + R to restart the game 
