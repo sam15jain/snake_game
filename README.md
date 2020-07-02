@@ -7,6 +7,7 @@
 ## Game Play
 ![theme1](screenshots/theme1_ss.png) 
 ![theme2](screenshots/theme2_ss.png)
+
 * The objective of this game is to score points by
 making the snake consume food particles which are found at random
 positions, while avoiding hitting the walls and itself.
@@ -20,7 +21,8 @@ positions, while avoiding hitting the walls and itself.
 * Score and level are updated and displayed dynamically .
 
 * Game gets over when the snake hits a wall, or collides with itself. 
-![game_over1](screenshots/game_over1_ss.png)
+
+![game_over1](screenshots/game_over3_ss.png)
 ![game_over1](screenshots/game_over2_ss.png)
 
 * Sounds and images are included for entertainment, pause and play function is also provided.
@@ -28,7 +30,8 @@ positions, while avoiding hitting the walls and itself.
 ## Controls
 * W / A / S / D keys or Arrow keys to move the snake
 * Space or Enter to Start, Pause or Un-Pause the game
-![game_start](![game_over1](screenshots/game_start_ss.png))
-![game_paused](![game_over1](screenshots/game_paused_ss.png))
+
+![game_start]((screenshots/game_start_ss.png))
+![game_paused]((screenshots/game_paused_ss.png))
 
 * Ctrl + R to restart the game 
