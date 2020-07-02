@@ -10,8 +10,8 @@ class Theme {
 }
 
 /// Theme objects are initialised 
-theme1 = new Theme("#fcf195", "#0bad41c0", "#b30303", "#000000", "apple_image3.png");
-theme2 = new Theme("#5d77a7", "#000000", "#0b3788", "#ffffff", "pear_image.png");
+theme1 = new Theme("#fcf195", "#0bad41c0", "#b30303", "#000000", "media/apple_image3.png");
+theme2 = new Theme("#5d77a7", "#000000", "#0b3788", "#ffffff", "media/pear_image.png");
 
 /// Initialisation or init function definintion
 function init() {
@@ -32,11 +32,11 @@ function init() {
 	/// Initialising media
 	food_image = new Image();
 	food_image.src = current_theme.food_image_src;
-	keypress_sound = new sound("keypress_sound1.mp3");
-	keypress_sound2 = new sound("keypress_sound2.mp3");
-	food_eating_sound = new sound("food_eating_sound.mp3");
-	level_up_sound = new sound("level_up_sound.mp3");
-	game_over_sound = new sound("game_over_sound.mp3");
+	keypress_sound = new sound("media/keypress_sound1.mp3");
+	keypress_sound2 = new sound("media/keypress_sound2.mp3");
+	food_eating_sound = new sound("media/food_eating_sound.mp3");
+	level_up_sound = new sound("media/level_up_sound.mp3");
+	game_over_sound = new sound("media/game_over_sound.mp3");
 
 	// Initialising game parameters
 	celldim = 34.2;
@@ -184,7 +184,7 @@ function collision(new_snake_head_x, new_snake_head_y) {
 	}
 	return false;
 }
-
+ 
 /// sound class definition, used to create audio objects 
 class sound {
 	constructor(src) {
