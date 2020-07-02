@@ -1,9 +1,12 @@
+<!-- Author : Samyak Jain
+	Created on : 20 June 2020 -->
 # Snake Game Web App
 
 ## About
 * Made with JAVASCRIPT , HTML and CSS
 * Snake Game for Web.
-* Wbsite Link (Desktop Version): https://sam15jain.github.io/snake_game/
+* Website Link (Desktop Version): https://sam15jain.github.io/snake_game/
+
 ## Game Play
 ![theme1](screenshots/theme1_ss.png) 
 ![theme2](screenshots/theme2_ss.png)

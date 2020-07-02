@@ -1,3 +1,7 @@
+/* 
+	Author : Samyak Jain
+	Created on : 20 June 2020
+*/
 /// Theme class definition, this class stores the color scheme
 class Theme {
 	constructor(background_color, canvas_color, snake_color, snake_head_color, food_image_src) {
